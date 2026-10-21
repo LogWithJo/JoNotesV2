@@ -1,25 +1,29 @@
-import { StrictMode } from "react"
-import { createRoot } from "react-dom/client"
+/** biome-ignore-all assist/source/organizeImports: <explanation> */
+import { ThemeProvider } from "@/components/theme-provider.tsx";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
+import { QueryClientProvider, useQueryErrorResetBoundary } from '@tanstack/react-query';
+import queryClient from './lib/react-query.ts';
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from './components/ErrorFallback.tsx';
 
-import "./index.css"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { ThemeProvider } from "@/components/theme-provider.tsx"
-import App from "./App.tsx"
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-    },
-  },
-})
+function AppContent() {
+	const {reset} = useQueryErrorResetBoundary();
+	return (
+		<ErrorBoundary FallbackComponent={ErrorFallback} onReset={reset}>
+			<App />
+		</ErrorBoundary>
+	)
+}
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <ThemeProvider>
-      <QueryClientProvider client={queryClient}>
-        <App />
-      </QueryClientProvider>
-    </ThemeProvider>
-  </StrictMode>
-)
+	<StrictMode>
+		<ThemeProvider>
+			<QueryClientProvider client={queryClient}>
+				<AppContent />
+			</QueryClientProvider>
+		</ThemeProvider>
+	</StrictMode>,
+);

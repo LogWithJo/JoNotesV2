@@ -1,23 +1,47 @@
 // biome-ignore assist/source/organizeImports: <explanation>
-import apiClient from "@/api/client";
+import {
+	API_CONFIG,
+	apiClient,
+	createNoteSchema,
+	IdNoteSchema,
+	noteQueryParamsSchema,
+	noteSchema,
+	updateNoteSchema,
+	type createNoteData,
+	type IdNoteParam,
+	type Note,
+	type NoteQueryParams,
+	type UpdateNoteParams,
+} from "@/api/index";
 import { z } from "zod";
-import { type createNoteData, type Note, type NOteQueryParams, noteQueryParamsSchema, noteSchema } from "./notes.schemas";
 
 export const notesService = {
-	getNotes: async (params: NOteQueryParams): Promise<Note[]> => {
+	getNotes: async (params: NoteQueryParams): Promise<Note[]> => {
 		const validParams = noteQueryParamsSchema.safeParse(params);
-		if (!validParams.success) {
-			throw new Error("Invalid note query params");
-		}
-		const response = await apiClient.get("/notes", {params: validParams});
+		const response = await apiClient.get(API_CONFIG.endpoints.notes.base, {
+			params: validParams,
+		});
 		return z.array(noteSchema).parse(response.data);
 	},
 	createNote: async (data: createNoteData): Promise<Note> => {
-		const validPayload = noteSchema.safeParse(data);
-		if (!validPayload.success) {
-			throw new Error("Invalid note data");
-		}
-		const response = await apiClient.post("/notes", validPayload.data);
+		const validPayload = createNoteSchema.safeParse(data);
+		const response = await apiClient.post(API_CONFIG.endpoints.notes.base, {
+			params: validPayload,
+		});
 		return noteSchema.parse(response.data);
+	},
+	updateNote: async (data: UpdateNoteParams): Promise<Note> => {
+		const validPayload = updateNoteSchema.safeParse(data);
+		const response = await apiClient.patch(API_CONFIG.endpoints.notes.base, {
+			params: validPayload,
+		});
+		return noteSchema.parse(response.data);
+	},
+	deleteNote: async (data: IdNoteParam): Promise<{ success: boolean }> => {
+		const validPayload = IdNoteSchema.safeParse(data);
+		const response = await apiClient.delete(API_CONFIG.endpoints.notes.base, {
+			params: validPayload.data,
+		});
+		return response.data;
 	},
 };

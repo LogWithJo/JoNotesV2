@@ -18,12 +18,35 @@ export const noteQueryParamsSchema = z.object({
 	id: z.string().optional(),
 });
 
-export type NOteQueryParams = z.infer<typeof noteQueryParamsSchema>;
+export const createNoteSchema = noteSchema
+	.pick({
+		title: true,
+		category: true,
+		content: true,
+	})
+	.partial({
+		content: true,
+	});
+
+export const updateNoteSchema = noteSchema.pick({
+	title: true,
+	content: true,
+	category: true,
+	id: true,
+});
+
+export const IdNoteSchema = noteSchema.pick({
+	id: true,
+});
+
+export type NoteQueryParams = z.infer<typeof noteQueryParamsSchema>;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const notesArraySchema = z.array(noteSchema);
 
 // Extract the inferred type for TypeScript usage
+export type IdNoteParam = z.infer<typeof IdNoteSchema>;
+export type UpdateNoteParams = z.infer<typeof updateNoteSchema>;
 export type Note = z.infer<typeof noteSchema>;
-export type createNoteData = z.infer<typeof noteSchema>;
+export type createNoteData = z.infer<typeof createNoteSchema>;
 export type NotesArray = z.infer<typeof notesArraySchema>;
