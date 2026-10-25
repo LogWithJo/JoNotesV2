@@ -1,9 +1,11 @@
-import type { NoteQueryParams } from "@/api/index";
+import type { IdNoteParam, NoteQueryParams } from "@/api/index";
 
 export const noteKeys = {
 	all: ["notes"] as const,
-	list: (params?: NoteQueryParams) =>
-		[...noteKeys.all, "list", params] as const,
+	
 	lists: () => [...noteKeys.all, "list"] as const,
-	detail: (id: string) => [...noteKeys.all, "detail", id] as const,
+	list: (params: NoteQueryParams) => [...noteKeys.lists(), params] as const,
+
+	details: () => [...noteKeys.all, "detail"] as const,
+	detail: (id: IdNoteParam) => [...noteKeys.details(), id] as const,
 };

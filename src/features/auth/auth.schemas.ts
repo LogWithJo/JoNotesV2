@@ -1,15 +1,22 @@
 import { z } from "zod";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const responseSchema = z.object({
-  token: z.string(),
-  user: z.object({
-    id: z.number(),
-    email: z.string().email(),
-    name: z.string().nullable(),
-    avatar: z.string().nullable(), // Alternatively: z.string().url().nullable() if it's always an image URL
-  }),
+export const requestSchema = z.object({
+	email: z.string().email(),
+	password: z.string().min(1),
 });
 
-// Extract the inferred type for TypeScript usage
-export type ResponseData = z.infer<typeof responseSchema>;
+export const userSchema = z.object({
+	id: z.number(),
+	email: z.string().email(),
+	name: z.string().nullable(),
+	avatar: z.string().nullable(),
+});
+
+export const responseSchema = z.object({
+	token: z.string(),
+	user: userSchema,
+});
+
+export type ContinueData = z.infer<typeof requestSchema>;
+export type User = z.infer<typeof userSchema>;
+export type AuthResponse = z.infer<typeof responseSchema>;

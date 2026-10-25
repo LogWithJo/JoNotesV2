@@ -1,5 +1,3 @@
-// src/api/config.ts
-
 export const API_CONFIG = {
 	baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:3000",
 	timeout: 10000,
@@ -7,13 +5,11 @@ export const API_CONFIG = {
 		health: "/",
 		auth: {
 			continue: "/auth/continue",
-			login: "/auth/login",
-			register: "/auth/register",
 		},
 		notes: {
 			base: "/notes",
-			byId: (id: number | string) => `/notes/${id}`,
-			pin: (id: number | string) => `/notes/${id}/pin`,
+			byId: (id: number) => `/notes/${id}`,
+			pin: (id: number) => `/notes/${id}/pin`,
 		},
 	},
 } as const;

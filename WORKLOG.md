@@ -107,3 +107,28 @@ Error handling strategy: Implemented the Error Handling Strategy and created Err
 
 ### ⏳ Pending & Next Steps
 - [ ] Create the `auth` feature API modules (`auth.schemas.ts`, `auth.service.ts`, `auth.keys.ts`, `useAuth.ts`).
+
+
+
+# 📅 Date: 25-10-2026
+
+### 📦 Dependencies & Environment Setup
+- Installed core application packages:
+  - `zustand` (State Management)
+
+---
+
+### ⚙️ Completed Work
+1. **Finished Auth API fetching**
+
+---
+
+### 📌 References & Resources
+- **API Documentation:** `API Docs.md`
+- **AI Chat Session ( Gemini ):** [Gemini Project Thread](https://gemini.google.com/app/154806563900ae15)
+- **AI Chat Session ( Claude ):** [Claude Project Thread](https://claude.ai/chat/fc192ce6-2ee1-4920-802e-4092bbf887ea)
+
+---
+
+### ⏳ Pending & Next Steps
+- [ ] fix bugs for api and optimize it to best practices.
