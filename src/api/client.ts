@@ -1,6 +1,7 @@
-import { API_CONFIG, useAuthStore } from "@/api/index";
+import { useAuthStore } from "@/api/index";
 import axios from "axios";
 import queryClient from "../../src/lib/react-query.ts";
+import { API_CONFIG } from "./config.ts";
 
 export const apiClient = axios.create({
 	baseURL: API_CONFIG.baseURL,

@@ -132,3 +132,37 @@ Error handling strategy: Implemented the Error Handling Strategy and created Err
 
 ### ⏳ Pending & Next Steps
 - [ ] fix bugs for api and optimize it to best practices.
+
+
+## 📅 Date: 28-10-2026
+
+### 📦 Dependencies & Environment Setup
+- No new dependencies installed.
+
+---
+
+### 🏗️ API & Feature Architecture Setup
+Configured the app around a centralized API layer using `src/api/*` and feature-scoped React Query hooks under `src/features/notes/*`. The setup now includes a shared Axios client, environment-driven base URL config, Zod validation, global query client defaults, and a separate notes testing entry point for validating the backend contract.
+
+---
+
+### ⚙️ Completed Work
+1. **API client and error handling setup:**
+   - Centralized API configuration in `src/api/config.ts`, added request/401 cleanup logic in `src/api/client.ts`, and introduced normalized error mapping in `src/api/errors.ts` to make backend failures easier to handle consistently.
+2. **Notes service and React Query integration:**
+   - Implemented the notes CRUD and pinning flow in `src/features/notes/notes.service.ts`, structured cache keys in `src/features/notes/notes.keys.ts`, and wired feature hooks in `src/features/notes/useNotes.ts` with invalidation logic and schema validation.
+
+---
+
+### 📌 References & Resources
+- **API Documentation:** `API Docs.md`
+- **AI Chat Session ( Gemini ):** [Gemini Project Thread](https://gemini.google.com/app/154806563900ae15)
+- **AI Chat Session ( Claude ):** [Claude Project Thread](https://claude.ai/chat/fc192ce6-2ee1-4920-802e-4092bbf887ea)
+
+---
+
+### ⏳ Pending & Next Steps
+- [ ] Validate the auth continuation flow and finalize token handling after confirming the backend contract.
+- [ ] Revisit remaining API edge cases and cache invalidation issues discovered during notes testing.
+
+***

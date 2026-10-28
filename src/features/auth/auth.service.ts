@@ -8,9 +8,7 @@ import {
 export const authService = {
 	continue: async (data: ContinueData) => {
 		const validPayload = requestSchema.parse(data);
-		const response = await apiClient.post(API_CONFIG.endpoints.auth.continue, {
-			params: validPayload,
-		});
+		const response = await apiClient.post(API_CONFIG.endpoints.auth.continue, validPayload);
 		return response.data;
 	},
 };

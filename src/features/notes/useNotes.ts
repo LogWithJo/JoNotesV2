@@ -44,7 +44,8 @@ export const useUpdateNote = () => {
 	return useMutation({
 		mutationFn: (data: UpdateNoteParams) => notesService.updateNote(data),
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: noteKeys.all });
+			queryClient.invalidateQueries({ queryKey: noteKeys.details() });
+			queryClient.invalidateQueries({queryKey: noteKeys.lists() })
 		},
 	});
 };
@@ -64,7 +65,7 @@ export const usePatchPinNote = () => {
 	const queryClient = useQueryClient();
 	return useMutation({
 		mutationFn: (data: IdNoteParam) => notesService.patchPinNote(data),
-		onSuccess: (data: IdNoteParam) => {
+		onSuccess: (_result, data: IdNoteParam,) => {
 			queryClient.invalidateQueries({ queryKey: noteKeys.detail(data) });
 			queryClient.invalidateQueries({ queryKey: noteKeys.lists() });
 		},

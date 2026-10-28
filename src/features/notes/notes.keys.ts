@@ -7,5 +7,5 @@ export const noteKeys = {
 	list: (params: NoteQueryParams) => [...noteKeys.lists(), params] as const,
 
 	details: () => [...noteKeys.all, "detail"] as const,
-	detail: (id: IdNoteParam) => [...noteKeys.details(), id] as const,
+	detail: (id: IdNoteParam) => [...noteKeys.details(), id.id] as const,
 };
